@@ -32,18 +32,37 @@
             <span v-for="(i in 10">
                     这是第{{ i }}次遍历
             </span>
+            <hr>
+            <h4>使用v-for组件，没有使用key</h4>
+            <!--key的使用的原因-->
+            <input type="text" placeholder="填写name" v-model="name">
+            <input type="text" placeholder="填写sex" v-model="sex">
+            <button @click="addUser">添加</button><br>
+            <span v-for="item in arrObj" ><input type="checkbox">{{ item.name }}的性别为{{ item.sex }}</span>
+            <hr>
+            <!-- 使用key保证元属唯一字符串，注意:key不能为对象，只能是字符串或者是数字-->
+            <h4>使用key,<span style="color: red">注意:key不能为对象，只能是字符串或者是数字</span></h4>
+            <input type="text" placeholder="填写name" v-model="name">
+            <input type="text" placeholder="填写sex" v-model="sex">
+            <button @click="addUser">添加</button><br>
+            <span v-for="item in arrObj" :key="item.name" ><input type="checkbox">{{ item.name }}的性别为{{ item.sex }}</span>
         </div>
         <script>
             var vm = new Vue({
                 el: '#app',
                 data: {
+                    name: '',
+                    sex: '',
                     arr : [1,2,3,4,5,6,7,'mmp'],
                     arrList: [{name:"ming"},{name:"zhangshan"},{name:"yong"},{name:"yu"}],
-                    userObj: {name:"ming",sex:"男"}
+                    userObj: {name:"ming",sex:"男"},
+                    arrObj: [{name:"ming",sex:"男"},{name:"ming1",sex:"男"},{name:"ming2",sex:"男"}]
                 },
                 methods: {
-                    
-                },
+                    addUser : function (){
+                        this.arrObj.unshift({name:this.name,sex:this.sex});
+                    }
+                }
             })
         </script>
 </body>

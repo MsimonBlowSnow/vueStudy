@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <!--v-if和v-show的使用-->
+    <div id="app">
+        <!--
+            v-if 每次都会删除或者重新创建元属
+            v-show切换display属性
+        注意:v-if有较高的切换消耗
+                v-show有较高的初始渲染消耗，
+                如果：元属切换次数较高，用v-show,
+                如果:  元属切换的次数较少，用v-if
+        -->
+        <h3 v-if="flag">这里是使用v-if控制元属</h3>
+        <h3 v-show="flag">这里是使用v-show控制元属</h3>
+        <button @click="toggle">toggle</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+            },
+            methods: {
+                toggle : function (){
+                    this.flag = !this.flag;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

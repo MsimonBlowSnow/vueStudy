@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src= "../vue.js"></script>
+    
+</head>
+<body>
+        <div id="app">
+            <button @click="aaaa">
+                aaaa
+            </button>
+
+            <button @click="bbbb">
+                    bbbb
+            </button>
+            <article>
+                {{ message }}
+            </article>
+        </div>
+</body>
+<script>
+    new Vue({
+        el : '#app',
+        data : {
+            message : "ajksdlfjalkdhgbajrkquiehadkfhadjkfhas",
+            methodsInterval : null
+        },
+        methods : {
+            aaaa : function lang (){
+                if(this.methodsInterval == null){
+                    var  _this = this; 
+                    this.methodsInterval = setInterval(function(){
+                        var start = _this.message.substring(0,1);
+                        var end = _this.message.substring(1);
+                        _this.message = end+start;
+                    },500);
+                }
+                else
+                    return 0;
+            },
+            bbbb: function (){
+                clearInterval(this.methodsInterval);
+                this.methodsInterval = null;
+            }
+        } 
+    })
+</script>
+</html>

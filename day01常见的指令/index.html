@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+            [v-cloak]{
+                    display: none;
+            }
+            .red{
+                    color:red
+            }
+    </style>
+</head>
+<body>
+      
+        <div id="app">
+                <p v-cloak> 插值表达式:{{ message }}<span style=" color: red"> 注意：插值表达式在网络卡的时候会有闪烁,v-cloak可以解决插值表达式的闪烁问题</span></p>
+                <p >使用v-text来代替插值表达式: <span v-text="message"></span> <span class="red">v-text会把标签里面原有的内容给代替</span></p>
+                <!--
+                        默认v-text没有闪烁问题
+                        v-text会替换原本的内容，而插值表达式只会替换占位符
+                -->
+                <hr>
+                        <p v-text="meshtml"></p>
+                        <p>{{ meshtml }},插值表达式和v-text不能渲染html</p>
+                        <p>v-html也会覆盖元素里面原有的内容<span v-html="meshtml"></span></p>
+                <hr>
+                        <article v-bind:title="message+'不是vue'">使用v-bind该变元属的title属性,v-bind绑定属性, <span class="red">v-bind 是vue用来绑定属性的指令,可以简写 用: v-bind:title = :title,v-bind可以写js表达式</span></article>
+                                <!--
+                                        使用v-bind该变元属的title属性,v-bind绑定属性,
+                                                v-bind:title = :title,v-bind可以写js表达式
+                                        v-bind:title="message+" 可以使用加号拼接""
+                                -->
+                 <hr>
+                        <article>使用v-on来完成事件的绑定<button  @mouseover="methods1">v-on:</button></article>
+                        <!--
+                                注意其他的事件也可以用v-on:来完成例如 mouseover事件等等
+                                v-on的缩写为@
+                                        例如: v-on:mouseover = @mouseover
+                        -->               
+                </div>
+</body>
+<script>
+        new Vue({
+            el: '#app',
+            data : {
+                    message : "你有病",
+                    meshtml: "<h1>我是h1标签</h1>",
+            },
+            methods: {
+                    methods1: function(){
+                            alert(1);
+                    }
+            },
+        })
+</script>
+</html>

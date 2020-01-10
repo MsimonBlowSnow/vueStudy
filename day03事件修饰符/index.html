@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px auto;
+        }
+        .div{
+            height: 50px;
+            width: auto;
+            background-color: #ccc;
+        }
+        hr{
+            height:10px;
+            background-color: #f00;
+        }
+    </style>
+    <script src="../vue.js">
+        
+    </script>
+</head>
+<body>
+        <!--
+            1.事件修饰符号的使用
+                    .stop阻止冒泡事件(加在冒泡的子元素上面，即第一个触发事件的元属)
+                    .prevent阻止默认事件
+                    .capture绑定捕获事件(加在捕获的父元素上面，即第一个触发事件的元属)
+                    .self 只当事件在该元属本身(比如不是子元属,即冒泡和捕获不触发该事件)时触发触发回调
+                    .once只触发一次
+                    注意:1.事件修饰符号可以串连
+                              2. .stop和.self在阻止冒泡上的区别
+                                .stop阻止了所有的冒泡事件，而.self只能让自己不受(冒泡和捕获)的影响
+
+        -->
+        <div id="app">
+            <div class="div" @click="divmethod" ><button @click.stop="btnmethod">使用.stop阻止冒泡事件</buon></div>
+            <hr>
+           <button @contextmenu.prevent="btnmethod">使用.prevent阻止默认事件(右击)</button>
+           <hr>
+           <div class="div" @click.capture="divmethod" ><button @click="btnmethod">使用.capture添加捕获事件机制</buon></div>
+           <hr>
+           <div class="div" @click.self="divmethod" ><button @click="btnmethod">使用.self不受冒泡捕获事件影响，自能自身触发</buon></div>
+            <hr>
+            <div class="div" @click="divmethod" ><button @click.once="btnmethod">使用.once只能触发一次事件</buon></div> 
+        </div>
+</body>
+<script >
+    new Vue({
+        el: '#app',
+        data: {
+            
+        },
+        methods: {
+            btnmethod :function (){
+                    console.log("btn触发事件");
+            },
+            divmethod :function (){
+                    console.log("div触发事件");
+            }     
+        },
+    });
+</script>
+</html>

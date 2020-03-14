@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app"></div>
+        <script>
+            //使用vue.extend来创建全局的组件
+            Vue.extend({
+                template: '<h3>'//通过template属性,指定了组件的展示的html结构
+            })
+            new Vue({
+                el: '#app',
+                data:{},
+                methods:{}
+            })
+        </script>
+</body>
+</html>

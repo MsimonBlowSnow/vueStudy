@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script src="../vueResource.js"></script>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+
+<body>
+    <div id="app">        
+        <input type="text"  id=""  v-model:value="cname" @keyup.enter="addBrand(cname)" placeholder="请输入添加的品牌名">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>dtime</th>
+                        <th>operator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="obj in list" :key="obj.id">
+                        <td>{{ obj.id }}</td>
+                        <td>{{ obj.name }}</td>
+                        <td>{{ obj.dtime }}</td>
+                        <td><button class="btn btn-danger" @click.prevent="deleteBrand(obj.id)">删除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+    </div>
+</body>
+<script>
+    //设置根地址
+    Vue.http.options.root = 'http://localhost:80/';
+    new Vue({
+        el: "#app",
+        data: {
+            list: [],
+            cname: ''
+        },
+        methods: {
+            findAll: function () {
+                this.$http.jsonp("php/phpAPI/vueStudy/getInfo.php").then((res) => {
+                     this.list = JSON.parse(JSON.stringify(res.data));
+                 }, (err) => {
+                    console.log(err);
+                })
+            },
+            deleteBrand: function(id){
+              this.$http.jsonp(`php/phpAPI/vueStudy/delete.php?id=${id}`).then((res) => {
+                console.log(res.body);
+                this.findAll();
+              },(err)=>{
+                  console.log(err);
+              })
+            },
+            addBrand: function(name){
+                this.$http.jsonp(`php/phpAPI/vueStudy/add.php?name=${name}`).then(res=>{
+                    console.log(res.body);
+                    this.findAll();
+                    this.cname="";
+                })
+            }
+        },
+        created() {
+            this.findAll();
+        },
+    })
+</script>
+
+</html>

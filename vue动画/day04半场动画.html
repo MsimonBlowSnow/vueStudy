@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .ball{
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: red;
+    }
+</style>
+<script src="../vue.js"></script>
+<!--
+    1.半场动画 即:只用入场动画，或者出场动画里面的一种
+            <transition
+  v-on:before-enter="beforeEnter"  
+  v-on:enter="enter"
+  v-on:after-enter="afterEnter"
+  v-on:enter-cancelled="enterCancelled"
+
+  v-on:before-leave="beforeLeave"
+  v-on:leave="leave"
+  v-on:after-leave="afterLeave"
+  v-on:leave-cancelled="leaveCancelled"
+>
+这是淡入淡出的基本动画的时间绑定，后面是要执行的函数
+ -->
+</transition>
+<body>
+    <div id="app">
+        <input type="button" value="点击有小球" @click="flag=!flag">
+        <transition
+            @before-enter = "beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+        >
+            <div class="ball" v-show="flag"></div>
+        </transition>
+    </div>
+    <script >
+            new Vue({
+                el: "#app",
+                data: {
+                    flag: false,
+                },methods: {
+                    //el要执行动画的dom元属，是源生的js对象
+                    beforeEnter(el){
+                        //beforeEnter表示动画入场之前，此时动画还没有开始，可以在这里设置动画之前的起始样式
+                        
+                        //设置小球开始动画的起始位置，第而次点击回到原始的位置
+                        el.style.transform = "translate(0,0)";
+                    },
+                    enter(el,done){
+                        //这句话没有时即作用,不写没有过度效果，可以认为这会强制小球刷新
+                        el.offsetWidth
+                        //enter表示动画开始之后的样式，这里可以设置小球完成动画之后的结束状态
+                        el.style.transform = "translate(150px,450px)";
+                        el.style.transition="all 1s ease";
+                        //这里面的done器是就是afterEnter函数,立即执行afterEnter，防止延迟
+                        done();
+                    },
+                    afterEnter(el){
+                        //动画完成之后执行: 把小球隐藏
+                        this.flag= !this.flag;
+                    },
+                    }
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>
+        Document
+    </title>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-model="message" @keyup.enter='enter' v-focus>
+        <input type="text"  @keyup.wi="f2" v-color="'blue'">
+    </div>
+
+</body>
+<script>
+    //自定义修饰符号
+    Vue.config.keyCodes.wi = 87;
+
+    /*自定义指令
+    使用Vue.directive() 定义全局的指令 v-focus
+    其中: 参数1: 指令的名称,注意在定义时不须要v-前缀进行调用,使用时要加上
+                参数2: 是一个对象，这个对象身上，有一些指令相关的函数，这些函数在
+                                特定的阶段，执行相关的操作。
+    */ 
+    Vue.directive('focus',{
+       /*  bind：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+                    inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+                    update：所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 (详细的钩子函数参数见下)。
+                    我们会在稍后讨论渲染函数时介绍更多 VNodes 的细节。
+                    componentUpdated：指令所在组件的 VNode 及其子 VNode 全部更新后调用。
+                    unbind：只调用一次，指令与元素解绑时调用。 */
+            
+            //每个函数的第一个参数，el为绑定元属的DOM对像
+            bind: function(el){ //绑定时调用
+                    //el.foucs(); //无效，运输绑定时,el还没有放入dom中去。
+
+                    //一般bind放与css相关的内容，他在元属没有放入DOM中就执行了，防止使用js无效
+            },
+            inserted: function (el){//插入时候调用
+                    el.focus();
+                    //inserted放入js相关的内容
+            },
+            update: function(el){//更新时调用
+                
+            }
+    });
+
+    Vue.directive('color', {
+        bind: function(el,binding){
+
+            /*
+                函数的第二个参数binding是一个对象包括参数为:
+                        name: 指令名称
+                        value: 表达式的值
+                        expression: 表达式(注意是字符串形式)
+            */
+            el.style.color = binding.value;
+            console.log(binding.value);
+            console.log(binding.expression);
+        }
+    });
+    new Vue({
+        el: '#app',
+        data: {
+            message: "舞曲"
+        },
+        methods: {
+            enter: function () { 
+                alert("你按了enter键");
+            },
+            f2: function () {
+                alert("你按了w键");
+            }
+        },
+    })
+</script>
+
+</html>

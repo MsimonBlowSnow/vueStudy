@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="/node_modules/vue/dist/vue.js"></script>
+    <script src="/node_modules/vue-resource/dist/vue-resource.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message }}hdaksljfhad</p>
+        <input type="text" :value="message">
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            message: "a",
+            brands: [{
+                    id: 1,
+                    name: '奔驰',
+                    ctime: new Date()
+                },
+                {
+                    id: 2,
+                    name: '宝马',
+                    ctime: new Date()
+                },
+                {
+                    id: 3,
+                    name: '奥迪',
+                    ctime: new Date()
+                }],
+        },
+        methods: {}
+    })
+</script>
+
+</html>

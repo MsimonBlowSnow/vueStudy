@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="vue.js"></script>
+<body>
+        <div id="app">
+            <input type="text" v-color="'blue'">
+        </div>
+</body>
+<script>
+    new Vue({
+    el:"#app",
+    data:{
+    },
+    methods: {    
+    },
+    //在很多时候，你可能想在 bind 和 update 时触发相同行为，而不关心其它的钩子。比如这样写：
+    directives:{
+        "color": {
+            bind: function(el,binding){
+                el.style.color = binding.value;
+            },
+        },
+         "bg": funciton(el,binding){//这个函数相当于bind和update中写了该函数
+                el.style.backgroundColor = binding.value;
+        } 
+    }
+})
+</script>
+
+</html>

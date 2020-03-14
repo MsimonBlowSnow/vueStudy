@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>
+        Document
+    </title>
+</head>
+
+<body>
+    <!-- 过滤器的使用，过滤器只能在插值表达式和v-bind中使用,对值进行格式化显示
+            使用方法
+                    过滤器的定义:
+                    vue.filter("过滤器名","函数处理()");
+                            处理函数的第一参数值是: 过滤器管道传过来的
+                            处理函数的第二个参数: 你你要传入的参数，如下面的args       
+                    {{ message | messageope(args) }} //其中messageope就是过滤器
+                注意: 全局的过滤器必须定义在vue之前，且过滤器可以多次使用如下
+                        {{ message | 第一个过滤器 | 第二个过滤器 }}
+                    
+                    私有的过滤器:
+                        私有过滤器的使用:如果调用的过滤器(公有私有都有改过滤器，两个重和，使用私有的过滤器)
+    -->
+    <div id="app">
+        <p>{{ message | messageope }}</p>
+        <p>{{ time | formatTime }}</p>
+        <p>{{ time| formatTime('yyyy-mm-dd') }}</p>
+    </div>
+    
+    <div id="app2">
+            {{time | formateTime}}
+    </div>
+</body>
+<script>
+    //这里声明的是全局过滤器，即所有的vue实例都可以使用
+Vue.filter('formatTime',function(data,format){
+        let time = new Date(data);
+        let y = time.getFullYear();
+        let m = time.getMonth()+1;
+        let d = time.getDate();
+        let h = time.getHours();
+        let min = time.getMinutes();
+        let s = time.getSeconds();
+        if(format&&format.toLowerCase()=== 'yyyy-mm-dd'){
+          return `${y}-${m}-${d}`;
+        }else{
+            return `${y}-${m}-${d} ${h}:${min}:${s}`;
+        }
+})
+Vue.filter('messageope',function(data){
+        return data.replace(/mmp/g, '你他妈真可爱');
+    })
+    let vue = new Vue({
+        el: '#app',
+        data: {
+            message: 'mmpmmpmmp',
+            time : new Date(),
+        },
+        methods: {
+            
+        },
+    });
+
+    //定义一个私有的过滤器
+    let vue2 = new Vue({
+        el: '#app2',
+        data:{
+
+        },
+        methods:{
+
+        },
+        //定义私有的过滤器
+        filters: {  //过滤器有两个条件名称和处理
+            dataformate: function(data){
+                return "app2的私有过滤器";
+            }
+        }
+    })
+
+</script>
+
+</html>

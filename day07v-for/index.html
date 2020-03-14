@@ -29,12 +29,15 @@
             <span v-for="(v, k,i) in userObj">索引为{{ i }}的元属键为{{ k }},值为:{{ v }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <hr>
             <!--使用v-for后面接数字，注意:数字从一开始-->
-            <span v-for="(i in 10">
-                    这是第{{ i }}次遍历
+            <span v-for=" count in 10">
+                    这是第{{ count }}次遍历
             </span>
             <hr>
             <h4>使用v-for组件，没有使用key</h4>
             <!--key的使用的原因-->
+            <!--点击其中的一个复选框，然后在添加对应的对象，你就会发现没用使用的key的元属被选择的数据变化了，不是
+                    唯一的key
+            -->
             <input type="text" placeholder="填写name" v-model="name">
             <input type="text" placeholder="填写sex" v-model="sex">
             <button @click="addUser">添加</button><br>

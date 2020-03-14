@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="../vue.js"></script>
+<link rel="stylesheet" href="../animate.css">
+<style>
+  /*第三方css动画效果
+    入场: bounceIn
+    离场:bounceOut
+    给过度元属 transition 加上 enter-active-class 和enter-leave-class属性，值为你要的动画过度类,并且要加上animated
+        <transition enter-active-class=" animated bounceIn" leave-active-class="animated bounceOut">
+            <h3 v-show="show">动画过度测试</h3>
+        </transition>
+
+        注意: animated可以加在enter(leave)-active-class中如上
+                也可以加在h3的class中，如下:
+
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" >
+            <h3 v-show="show" class="animated ">动画过度测试</h3>
+        </transition>
+  */
+</style>
+<body>
+    <div id="app">
+        <input type="button" value="toggle" @click="show=!show">
+        <h3 v-show="show">动画测试</h3>
+        <transition enter-active-class=" animated bounceIn" leave-active-class="animated bounceOut" :duration="800">
+            <h3 v-show="show">动画过度测试</h3>
+        </transition>
+
+        <!--使用 :duration来给元属加上入场离场的动画时间长度-->
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="400">
+            <h3 v-show="show" class="animated ">动画过度测试</h3>
+        </transition>
+        <!--单独设置入场和离场的动画时间长度个给：duration传入一个对象-->
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{enter: 200,leave: 400}">
+            <h3 v-show="show" class="animated ">动画过度测试</h3>
+        </transition>
+    </div>
+    <script >
+            new Vue({
+                el: "#app",
+                data: {
+                    show: true,
+                },methods: {
+
+                }
+            })
+    </script>
+</body>
+</html>

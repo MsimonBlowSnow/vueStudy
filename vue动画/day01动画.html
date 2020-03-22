@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="../vue.js"></script>
+    <script src="../vue.js">
+    </script>
+</head>
 <style>
     /*
         参考:https://cn.vuejs.org/v2/guide/transitions.html
@@ -12,21 +15,24 @@
         淡入动画: 1.v-enter(初始状态) 2.v-enter-active(进行状态) 3.v-enter-to:(结束状态)
         淡出动画: 1.v-leave(初始状态) 2.v-leave-active(进行状态) 3.v-leave-to:(结束状态)，
     */
+    
     .v-enter,
-    .v-leave-to{
+    .v-leave-to {
         opacity: 0;
-        transform: translateX(80px);    
+        transform: translateX(80px);
     }
+    
     .v-enter-to,
-    .v-leave{
+    .v-leave {
         opacity: 1;
     }
+    
     .v-enter-active,
-    .v-leave-active{
+    .v-leave-active {
         transition: all 1s ease;
     }
 </style>
-</head>
+
 <body>
     <div id="app">
         <input type="button" value="toggle" @click="show=!show">
@@ -40,15 +46,17 @@
             <h3 v-show="show">动画过度测试</h3>
         </transition>
     </div>
-    <script >
-            new Vue({
-                el: "#app",
-                data: {
-                    show: true,
-                },methods: {
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                show: true,
+            },
+            methods: {
 
-                }
-            })
+            }
+        })
     </script>
 </body>
+
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app">
+            <my-con1></my-con1>
+        </div>
+        <script>
+            /*
+                1.使用Vue.extend来创建全局的组件,通过template属性,指定了组件的展示的html结构
+                2.使用Vue.component('组件的名称',创建出来的组件模板对象)
+                3.如果要使用组件，直接把组件的名称以html的形式，
+                    引入到页面中即可(注意:组件的名称是驼峰的话,就是用-的形式连接)
+            */
+
+        /*     let com1 = Vue.extend({
+                template: '<h3>这是vue.extend创建的组件</h3>'//通过template属性,指定了组件的展示的html结构
+            })
+            Vue.component('myCon1',com1) */
+            //将上面俩不和在一起,第一个参数为组件的名称，第二个是vue.extands创建的组件
+            vue.component('myCon1',Vue.extand({
+                template : '<h3>这是vue.extand创建的组件</h3>'
+            }))
+            let app = new Vue({
+                el: '#app',
+                data:{},
+                methods:{}
+            })
+        </script>
+</body>
+</html>

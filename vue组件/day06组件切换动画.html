@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(150px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <a href="#" @click.prevent="componentName='login'">登入</a>
+        <a href="#" @click.prevent="componentName='register'">注册</a>
+        <transition mode="out-in">
+            <component :is="componentName"></component>
+        </transition>
+    </div>
+    <script>
+        /*
+             组件切换动画，使用transition包裹起来就可以完成切换的动画:
+                通过mode属性设置组件切换的模式 out-in先出后进
+        */
+        Vue.component("login", {
+            template: "<h3>登入组件</h3>",
+        });
+
+        Vue.component("register", {
+            template: "<h3>注册组件</h3>"
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                componentName: "login",
+            }
+        })
+    </script>
+</body>
+
+</html>

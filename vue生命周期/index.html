@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="修该msg"@click="msg=msg+1">
+        <div id="msg">{{ msg }}</div>
+    </div>
+    <script>
+        /*
+            从vue的创建到销毁等等，总是执行了一系列的事件，这些事件通称为生命器
+                            new vue() =>创建初始化对象  如图中new vue();
+                            init Event$lifecycle 表示刚刚初始化一个vue的空实例对象，这时vue只有一些默认的生命周期函数,和事件，其他的东西都没有创建
+                            beforeCreate(){} 函数是我们第一个遇到的生命周期函数，实例完全创建出来之前会执行,data和methods没有初始化
+                            created : 初始化完成的执行的第一个函数，你最早可以在这里面执行methods和里面的函数
+                            beforebeforeMount: 已经在内存中编译完，没有渲染
+        */
+        var vm = new Vue({
+            el:"#app",
+            data: {
+                msg: "a"
+            },
+            methods: {
+                show: function(){
+                    alert("show方法调用");
+                }
+            },
+            beforeCreate: function(){
+                /* alert("beforeCreate执行");
+                //在该函数中data和mattods函数都没有被初始化。
+                console.log(this.msg);
+                this.show(); */
+            },
+            created() {
+              /*   alert("Created执行");
+                //在该函数中data和mattods函数都已经被初始化。
+                console.log(this.msg);
+                this.show(); */
+            },
+            beforeMount() {
+                //生命周期里面的低三个函数,表示内存里面的模板已经编辑完成，但是没有把页面中的模板渲染到页面中,
+                //数据还没有渲染到上面去
+                console.log(document.getElementById("msg").innerHTML); //{{ message  }}
+            },
+            mounted() {
+                //生命周期里面的低三个函数,表示内存里面的模板已经编辑完成，已经把页面中的模板渲染到页面中,可以使用
+                //若果要通过默写插件操作dom，至少在mounted之后,mounted之后vue组件初始化成功了
+                console.log(document.getElementById("msg").innerHTML);//a
+            },
+            
+
+            //执行期的函数,beforeUpdate和Updated,当数据被改变的时后触发
+            beforeUpdate() {
+                //数据被改变的时候触发，页面还没有被更新，但是数据被更新了(MVVC中数据被更新了，不过视图没有被更新)
+                console.log("beforeUpdate:界面上的数据:"+document.getElementById("msg").innerHTML,"模型中的数据是:"+this.msg);
+            },
+            updated() {
+                //数据被更新了,页面也被更新
+                console.log("updated:界面上的数据:"+document.getElementById("msg").innerHTML,"模型中的数据是:"+this.msg);
+            },
+
+            //退出页面,
+            beforeDestroy() {
+                //开始执行销毁，组件里面的数据方法都时可以用的
+            },
+            destroyed() {
+                //销毁成果，组件里面的东西不可用
+            },
+            })
+    </script>
+</body>
+</html>

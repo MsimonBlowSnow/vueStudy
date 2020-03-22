@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app">
+            <con1 :parentmsg = "msg"></con1>
+        </div>
+        <script>
+            /*
+               父子组件的传值:
+                默认情况下子组件是不能访问父组件里面的数据的
+                    我们可以在引用子组件的时后,父组件通过属性绑定的形式将父组件的数据传递给子组件
+                        例如:
+                                <con1 :parentmsg = "msg"></con1>
+                                    在子组件的props的数组里面定义parentmsg，就完成父组件向子组件的串值过程
+                    子组件中: data是可读可写的数据，而props中的数据都是父组件传递过来的，只能够读，不能写
+            */
+            let vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: '父组件的数据'
+                },
+                methods: {},
+                components: {
+                    con1: {
+                        //子组件默认是不能访问父组件的数据的
+                        template: "<h1>这是子组件 {{ parentmsg }}</h1>",
+                         /*把父组件传递过来的parentmsg属性，先在props数据中，
+                             定义一下，这样，才能是使用这个数组
+                                组件中的所用props中的数据都是父组件传递给子组件的
+                             */
+                        props: ['parentmsg'],/*只能读不能写父组件传递过来的,不建议修改props*/
+                        data() { 
+                            /*子组件中的data数据并不是data父组件传递过来的，而是子组件自己私有的比如子组件通过ajax请求获得
+                                都可以放到data上面，可读可写
+                            */
+                            return {
+                                
+                            }
+                        },
+                    }
+                }
+            })
+        </script>
+</body>
+</html>

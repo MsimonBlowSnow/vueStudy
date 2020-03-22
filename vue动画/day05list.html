@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="../vue.js"></script>
+<style>
+    li {
+        border: 1px dashed #999;
+        line-height: 35px;
+        height: 35px;
+        padding-left: 5px;
+        padding-right: 10px;
+        width: 100%;
+    }
+
+    li:hover {
+        background-color: hotpink;
+        transition: all 1s ease;
+    }
+
+    .v-enter,
+    .v-leave-to {
+        opacity: 0;
+        transform: translateY(80px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 1s ease;
+    }
+
+
+    /*离开动画必须加上.v-move和 .v-leave-active,如果长度有变化，加上width: 100%,这些实现元属的上飘*/
+    /*使用.v-move来设置离开动画*/
+    .v-move {
+        transition: all 1s ease;
+    }
+
+    /*必须使用absolute来是动画移动*/
+    .v-leave-active {
+        position: absolute;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div>
+            <label>
+                id:
+                <input type="text" name="id" v-model:value="id">
+            </label>
+            <label>
+                name:
+                <input type="text" name="name" v-model:value="name">
+            </label>
+            <button @click="addPeople">添加</button>
+        </div>
+
+        <!--在之前的元属用transition包裹起来就可以了，但是通过v-for渲染出来的不能使用transition，
+                使用transition-group来包裹,
+                若果要给v-for渲染的动画必须要加上key属性
+                
+                给transition-group加上appear实现入场(页面加载完成)的效果
+                通过tag属相来指定渲染为什么元属,默认是span，否值在ul里面有一个span包裹li(不如w3c标准)没有大问题
+            -->
+        <ul>
+            <transition-group appear>
+                <li v-for="(obj,i) in list" :key="obj.id" @click="delPeople(i)">
+                    {{ obj.id }}-->{{ obj.name }}
+                </li>
+            </transition-group>
+        </ul>
+        <hr>
+        <transition-group appear tag="ul">
+            <li v-for="(obj,i) in list" :key="obj.id" @click="delPeople(i)">
+                {{ obj.id }}-->{{ obj.name }}
+            </li>
+        </transition-group>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                list: [{
+                        id: 1,
+                        name: '周瑜'
+                    },
+                    {
+                        id: 2,
+                        name: '姬光'
+                    },
+                    {
+                        id: 3,
+                        name: "宇文邕"
+                    },
+                    {
+                        id: 4,
+                        name: "柴荣"
+                    },
+                ],
+                id: '',
+                name: '',
+            },
+            methods: {
+                addPeople() {
+                    this.list.push({
+                        id: this.id,
+                        name: this.name
+                    });
+                },
+                delPeople(i) {
+                    this.list.splice(i, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

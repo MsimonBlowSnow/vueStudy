@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app">
+            <con1 @func="show"></con1>
+        </div>
+        <script>
+            /*
+               父子组件的传值:
+                    父组件把方法传递给子组件:
+                        使用的是时间绑定机制
+                        例如:
+                                <con1 @func="show"></con1>//父组件传递方法给子组件
+                                子组件调用:
+                                    1.子组件模板
+                                         template: '<div><h1>这是子组件</h1><button @click="myclick">触发父组件函数</button></div>'
+                                    2.子组件方法
+                                        methods: {
+                                            myclick(){
+                                                this.$emit("func"); // 参数为绑定函数的值
+                                            }
+                                        }  
+            */
+            let vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: '父组件的数据'
+                },
+                methods: {
+                    show(){
+                        console.log("调用了父组件的show方法")
+                    }
+                },
+                components: {
+                    con1: {
+                        template: '<div><h1>这是子组件</h1><button @click="myclick">触发父组件函数</button></div>',
+                        props: [],
+                        data() { 
+                            return {
+                                
+                            }
+                        },
+                        methods:{
+                            myclick(){
+                                /*单点击子组件的按钮,怎么拿到父组件传递过来的方法呢
+                                    通过emit来拿
+                                        this.$emit('func'); //func为时间绑定的事件
+                                */
+                                this.$emit('func');
+                            }
+                        },
+                    },
+                }
+            })
+        </script>
+</body>
+</html>

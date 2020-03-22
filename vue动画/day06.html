@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        /*
+        参考:https://cn.vuejs.org/v2/guide/transitions.html
+        动画的六个状态:
+        淡入动画: 1.v-enter(初始状态) 2.v-enter-active(进行状态) 3.v-enter-to:(结束状态)
+        淡出动画: 1.v-leave(初始状态) 2.v-leave-active(进行状态) 3.v-leave-to:(结束状态)，
+    */
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(80px);
+        }
+
+        .v-enter-to,
+        .v-leave {
+            opacity: 1;
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+
+        .ball {
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="加入购物车" @click="flag = !flag">
+        <transition
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+        >       
+            <div class="ball" v-show="flag"></div>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                flag: false,
+            },
+            methods: {
+                beforeEnter(el){
+                    el.style.transform = 'translate(0px,0px)';
+                },
+                enter(el,done){
+                    el.offsetWidth;
+                    el.style.transform = 'translate(150px,450px)';
+                    el.style.transition = 'all 1s ease';
+                    done();
+                },
+                afterEnter(el){
+                    //使用this.flag = this.flag是成功的 
+                   // this.flag = !this.flag;
+                    el.style.opacity = 0.5;
+                    /*为什么使用opacity不成功,使用修改flag会成功
+                            vue使用钩子函数，把动画分成两部分，我们使用flag标是符号来变是动画的切换效果
+                            刚开始 flag = false ->true, 是上半场动画  flag=ture->false是下半场动画
+
+                                this.flag =!this.flag //1.控制小球的过度,2阻止后半场动画执行
+                    */
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

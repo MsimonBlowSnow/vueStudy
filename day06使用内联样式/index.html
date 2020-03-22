@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+        .thin {
+            font-weight: 200;
+        }
+        .italic {
+            font-style: italic;
+        }
+        .active {
+            letter-spacing: 0.5em;
+        }
+    </style>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- vue绑定内联样式使用-->
+        <!--1.直接使用样式对象-->
+        <h1 :style="freeStyle">1.直接使用样式对象(vue中的data传递的)</h1>
+        <h1 :style="{'color':'red','background-color':'blue'}">1.直接使用样式对象(自己写的对象)</h1>
+        <!--使用数组-->
+        <h1 :style="[obj1,obj2]">2.使用数组</h1>
+    </div>
+    <script >
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                freeStyle: {'color':'red','background-color':'blue'},
+                obj1: {'color': 'red'},
+                obj2: {'background-color':'blue'}
+            },
+        })
+    </script>
+</body>
+</html>

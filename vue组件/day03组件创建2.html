@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app">
+            <mycon2></mycon2>
+            <mycon3></mycon3>
+        </div>
+        <template id="tmp1">
+            <h1>值是通过template元属，在外部定义的组件结构，这个方式有代码的提示</h1>
+        </template>
+        <script>
+            /*
+                1.使用vue.component的第二个参数直接传入一个有template对象
+                    例如:
+                        var login = {template: "<h2>这是一个模板</h2>"}
+                        Vue.component('mycon4',login);
+                    使用:
+                            <mycon4></mycon4>
+                注意: 一个组件只有一个根元素
+                    
+            */
+           Vue.component('mycon2',{
+               template: "<div><h3>这是vue.compoent的第二种创建组件的方法</h3><span>只能有一个root节点</span></div>",
+           })
+           
+           /*组件创建的第三种方法
+                    在app的外面(即<div id="app">外面)，使用template元素，定义组件的html模板结构
+                          <template id="tmp1">
+                                <h1>值是通过template元属，在外部定义的组件结构，这个方式有代码的提示</h1>
+                            </template>
+           */
+          Vue.component('mycon3',{
+                template: '#tmp1' //绑定组件的id
+          })
+            new Vue({
+                el: '#app',
+            })
+        </script>
+</body>
+</html>

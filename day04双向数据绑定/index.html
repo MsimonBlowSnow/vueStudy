@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+        <h1> 使用v-model实现双向数据绑定</h1>
+        <div id="app">
+                <!--
+                    v-bind只能实现单向数据绑定，无法实现双向数据绑定。
+                    从M->v，无法从v->M
+                    v-model指令可以实现双向数据绑定
+                        v-model只能使用在表单元属中
+                        例如: input , select, checkbo,textarea都可以用v-model
+                -->
+                <h4> {{ msg }}</h4>
+                <span>使用v-bind单向数据绑定</span><input type="text" :value="msg">
+                <hr>
+                <span>使用v-model实现双向数据绑定</span><input type="text " v-model:value = "msg">
+        </div>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg : '爱学习'
+                },
+                methods: {
+                    
+                }
+            });
+        </script>
+</body>
+</html>

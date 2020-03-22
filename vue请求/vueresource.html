@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <!-- 注意vueResource.js依赖与vue
+                    this.$http.(get|post|jsonp)
+    -->
+    <script src="../vueResource.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="get请求参数" @click="getFunction">
+        <input type="button" value="post请求参数" @click="postFunction">
+        <input type="button" value="jsonp请求参数" @click="jsonp">
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+                getFunction: function () {
+                    //http://vue.studyit.io/api/getlunbo
+                    this.$http.get("data.json").then(function (result) {
+                        console.log(result.body); //推荐使用body获取
+                    });
+                },
+                postFunction: function () {
+                     //发送 post 请求
+                     //手动发起post请求，默认没有表单格式，有的服务器处理不了，设置{emulate: true}
+                     this.$http.post('https://mock.cangdu.org/mock/5e671a33ae8a4a789d3642f9/example/upload', {
+                         name: "菜鸟教程",
+                         url: "http://www.runoob.com"
+                     }, {
+                         emulateJSON: true
+                     }).then(function (res) {
+                        console.log(res);
+                     }, function (res) {
+                         console.log(res.status);
+                     });
+                 },
+                 jsonp: function(){
+                     this.$http.jsonp("https://sug.so.360.cn/suggest?encodein=utf-8&encodeout=utf-8&format=json&fields=word").then(function(result){
+                            console.log(result.body);
+                     });
+                 }
+            },
+
+        });
+
+        /*
+            配置root路经
+            Vue.http.options.root = "根路径";
+            在下面的的请求会默认这个根路经(注意: 请求地址不带斜线)
+            如:
+                vuePHPBrand中brand.html中
+
+            2.如果Web服务器无法处理编码为application/json的请求，你可以启用emulateJSON选项。
+                启用该选项后，请求会以application/x-www-form-urlencoded作为Content-Type，就像普通的HTML表单一样。
+                全局配置
+                    Vue.http.options.emulateJSON = true;
+        */
+    </script>
+</body>
+
+</html>

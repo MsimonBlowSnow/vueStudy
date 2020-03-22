@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app">
+            <mycon1></mycon1>
+            <error></error>
+            <error></error>
+            <error></error>
+        </div>
+        <template id="error">
+            <div>
+                <button @click="addOne">+1</button>
+                <h3>多次调用该组件共享数据组件</h3><span>{{ shareData }}</span>
+            </div>
+        </template>
+        <script>
+            let share= {shareData:1}
+            /*
+                组件中的data和methods
+                    data是必须是一个function并且要返回一个对象
+                    组件的data的数据和实际的data使用方式一样的
+                为什么data设计为了一个函数并且返回一个{对象}:
+                        保证多次使用该组件使，组件的数据不共享。
+                        例如error组件的例子
+            */
+           Vue.component('mycon1',{
+               template: "<h1>这是一个全局组件 {{ msg }}</h1>",
+               data() {
+                   return {
+                       msg: "组件中的data定义的数据",
+                   }
+               },
+           });
+          
+          Vue.component('error',{
+              template: "#error",
+              data: function(){
+                  return share;
+              },
+              methods: {
+                  addOne(){
+                      ++this.shareData;
+                  }
+              },
+          })
+           new Vue({
+                el: '#app',
+            })
+        </script>
+</body>
+</html>

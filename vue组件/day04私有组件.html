@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../vue.js"></script>
+        <div id="app">
+            <login></login>
+        </div>
+        <div id="app2">
+            <login2></login2>
+        </div>
+        <template id="login2">
+            <h1>app2私有的组件(app不能使用login2组件)</h1>
+        </template>
+        <script>
+            /*私有主键的创建:
+
+            */
+            new Vue({
+                el: '#app',
+                data:{},
+                methods: {},
+                components: { //定义实例内部私有组件
+                    login: {
+                        template: '<h1>app私有的login组件(app2不能使用)</h1>'
+                    }
+                    /*
+                        也可以使用:
+                            var login = {template}
+                            login: login;
+                    
+                    */
+                }
+            })
+            new Vue({
+                el: '#app2',
+                data: {},
+                methods: {
+                
+                },
+                components:{
+                    login2: {
+                        template: '#login2'
+                    }
+                }
+            })
+        </script>
+</body>
+</html>
